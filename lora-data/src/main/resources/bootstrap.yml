@@ -1,0 +1,24 @@
+server:
+  port: 8801
+spring:
+  application:
+    name: lora-data
+    cloud:
+      config:
+        uri: http://localhost:8888
+        fail-fast: true
+  cloud:
+    stream:
+      bindings:
+        data_from_app:
+          destination: data-from-app
+        test_demo_input:
+          destination: test-demo
+        test_demo_output:
+          destination: test-demo
+          group: g1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

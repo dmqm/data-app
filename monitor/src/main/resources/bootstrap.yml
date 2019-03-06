@@ -1,0 +1,21 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: monitor
+turbine:
+  app-config: lora-client,kafka-client
+  aggregator:
+    cluster-config: default
+  clusterNameExpression: new String("default")
+  combine-host: true
+  instanceUrlSuffix:
+    default: actuator/hystrix.stream
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

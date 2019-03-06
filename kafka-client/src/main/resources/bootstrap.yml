@@ -1,0 +1,36 @@
+server:
+  port: 8811
+spring:
+  application:
+    name: kafka-client
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: kafka-client
+      fail-fast: true
+    stream:
+      default-binder: rabbit
+      bindings:
+        data_from_app:
+          destination: data-from-app
+          group: kafka-client
+          binder: rabbit
+        data_to_kafka:
+          destination: data-to-kafka
+          binder: kafka
+        data_from_kafka:
+          destination: data-to-kafka
+          group: g1
+          binder: kafka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+
+
+
+
+
+
