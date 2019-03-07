@@ -2,6 +2,7 @@ package com.ycwl.qiny.data.handle.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.ycwl.qiny.data.handle.service.DataHandleService;
+import com.ycwl.qiny.data.handle.util.ConstEnum;
 import com.ycwl.qiny.data.handle.util.DataHandleError;
 import com.ycwl.qiny.data.handle.util.JsonParseUtil;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class DataHandleController {
     @HystrixCommand(fallbackMethod = "getUplinkDataFailedInController")
     public int getUplinkData(@RequestBody String message) {
         Map map = JsonParseUtil.parseNestJson(message);
-        if (map.containsKey("application_id") && map.get("application_id").equals(app_id)) {
+        if (map.containsKey(ConstEnum.APP_ID.getName()) && map.get(ConstEnum.APP_ID.getName()).equals("123")) {
             dataHandleService.handleUplinkData(map);
         }
         return DataHandleError.RECEIVE_SUCCESS.getCode();

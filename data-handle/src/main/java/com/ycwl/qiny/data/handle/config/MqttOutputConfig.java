@@ -22,7 +22,7 @@ public class MqttOutputConfig {
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
         MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[]{"tcp://localhost:10118"});
+        options.setServerURIs(new String[]{"tcp://121.49.107.155:10118"});
         factory.setConnectionOptions(options);
         return factory;
     }
@@ -33,7 +33,7 @@ public class MqttOutputConfig {
         MqttPahoMessageHandler messageHandler =
                 new MqttPahoMessageHandler("mqttClient", mqttClientFactory());
         messageHandler.setAsync(true);
-        messageHandler.setDefaultTopic("energy");
+        messageHandler.setDefaultTopic("electric-app");
         return messageHandler;
     }
 
