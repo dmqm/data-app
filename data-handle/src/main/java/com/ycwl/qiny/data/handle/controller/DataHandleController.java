@@ -31,7 +31,7 @@ public class DataHandleController {
     private String app_id;
 
     @RequestMapping("/uplink")
-    @HystrixCommand(fallbackMethod = "getUplinkDataFailedInController")
+ //   @HystrixCommand(fallbackMethod = "getUplinkDataFailedInController")
     public int getUplinkData(@RequestBody String message) {
         Map map = JsonParseUtil.parseNestJson(message);
         if (map.containsKey(ConstEnum.APP_ID.getName()) && map.get(ConstEnum.APP_ID.getName()).equals("123")) {

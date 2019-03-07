@@ -1,5 +1,8 @@
 package com.ycwl.qiny.data.handle.domain;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,10 +29,11 @@ public class GeneralMessage extends Message{
 
     @Override
     public String toString() {
-        Map ret = new HashMap();
-        ret.put("application_id", this.getApplication_id());
-        ret.put("application_name", this.getApplication_name());
-        ret.put("data",data);
-        return ret.toString();
+        Map map = new HashMap();
+        map.put("application_id", this.getApplication_id());
+        map.put("application_name", this.getApplication_name());
+        map.put("data",data);
+        JSONObject json = JSONObject.parseObject(JSON.toJSONString(map));
+        return json.toJSONString();
     }
 }
