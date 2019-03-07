@@ -1,21 +1,20 @@
 package com.ycwl.qiny.data.handle.domain;
 
-import com.alibaba.fastjson.JSONObject;
-
-import java.util.Map;
-
 /**
  * @ Author     ：Qiny.
- * @ Date       ：Created in 15:22 2019/2/27
+ * @ Date       ：Created in 11:14 2019/3/7
  * @ Description：
  */
-public class Message {
+public abstract class Message {
+    private int application_id;
     private String application_name;
-    private Map data;
 
-    public Message(String application_name, Map data) {
-        this.application_name = application_name;
-        this.data = data;
+    public int getApplication_id() {
+        return application_id;
+    }
+
+    public void setApplication_id(int application_id) {
+        this.application_id = application_id;
     }
 
     public String getApplication_name() {
@@ -26,19 +25,10 @@ public class Message {
         this.application_name = application_name;
     }
 
-    public Map getData() {
-        return data;
-    }
+    public abstract String toString();
 
-    public void setData(Map data) {
-        this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        String json = JSONObject.toJSONString(data);
-        StringBuilder ret = new StringBuilder();
-        ret.append("{ \"application_name\": \"").append(application_name).append("\",").append("\"data\": ").append(json).append("}}");
-        return ret.toString();
+    public Message(int application_id, String application_name) {
+        this.application_id = application_id;
+        this.application_name = application_name;
     }
 }

@@ -26,14 +26,14 @@ public class DataHandleController {
     @Autowired
     private DataHandleService dataHandleService;
 
-    @Value("${app.name}")
-    private String app_name;
+    @Value("${app.id}")
+    private String app_id;
 
     @RequestMapping("/uplink")
     @HystrixCommand(fallbackMethod = "getUplinkDataFailedInController")
     public int getUplinkData(@RequestBody String message) {
         Map map = JsonParseUtil.parseNestJson(message);
-        if (map.containsKey("application_name") && map.get("application_name").equals(app_name)) {
+        if (map.containsKey("application_id") && map.get("application_id").equals(app_id)) {
             dataHandleService.handleUplinkData(map);
         }
         return DataHandleError.RECEIVE_SUCCESS.getCode();
