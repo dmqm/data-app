@@ -11,11 +11,17 @@ import java.util.List;
 
 @SpringBootApplication
 public class Application {
+    private static String directoryPath = "D:\\Documents\\2012-4-1";
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         RestClient restClient = RestClient.builder(
                 new HttpHost("121.49.107.155", 10192, "http")).build();
-        List<String> files=getAllFile("D:\\Documents\\2012-4-1",false);
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(
+                        new HttpHost("localhost", 9200, "http"),
+                        new HttpHost("localhost", 9201, "http")));
+        List<String> files = getAllFile(directoryPath, false);
     }
 
     /**

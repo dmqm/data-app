@@ -1,2 +1,11 @@
-file:
-  path: "D:\Documents\2012-4-1"
+server:
+  port: 9082
+spring:
+  application:
+    name: data-handle
+  mqtt:
+    username: admin
+    password: 123456
+    url: localhost:2883
+    default:
+      topic: topic
