@@ -13,7 +13,9 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        List<String> files=getAllFile("${file.path}",false);
+        RestClient restClient = RestClient.builder(
+                new HttpHost("121.49.107.155", 10192, "http")).build();
+        List<String> files=getAllFile("D:\\Documents\\2012-4-1",false);
     }
 
     /**
@@ -41,11 +43,5 @@ public class Application {
             }
         }
         return list;
-    }
-
-    public RestHighLevelClient getClient(){
-        return client = new RestHighLevelClient(
-                RestClient.builder(
-                        new HttpHost("121.49.107.155", 9200, "http");
     }
 }
