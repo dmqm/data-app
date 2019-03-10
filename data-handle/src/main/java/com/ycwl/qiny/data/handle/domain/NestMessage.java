@@ -11,11 +11,11 @@ import java.util.Map;
  * @ Date       ：Created in 15:22 2019/2/27
  * @ Description：
  */
-public class NestMessage extends Message{
+public class NestMessage extends Message {
     private Map data;
 
     public NestMessage(int application_id, String application_name, Map data) {
-        super(application_id,application_name);
+        super(application_id, application_name);
         this.data = data;
     }
 

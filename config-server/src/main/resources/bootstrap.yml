@@ -10,4 +10,4 @@ spring:
           search-locations: classpath:properties/
   profiles:
     active:
-    - native
+      - native

@@ -29,6 +29,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -73,5 +77,6 @@
         <module>manage</module>
         <module>data-collect</module>
         <module>data-handle</module>
+        <module>data-elasticsearch</module>
     </modules>
 </project>
