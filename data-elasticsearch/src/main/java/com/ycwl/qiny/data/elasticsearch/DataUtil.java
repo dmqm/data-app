@@ -7,10 +7,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class DataUtil {
 
@@ -42,7 +42,7 @@ public class DataUtil {
     }
 
     public static List<Map> getDataFromExcel(String filePath) {
-        List<Map> list=new ArrayList<>();
+        List<Map> list = new ArrayList<>();
         if (!filePath.endsWith(".xls") && !filePath.endsWith(".xlsx")) {
             System.out.println("文件不是excel类型");
         }
@@ -80,17 +80,27 @@ public class DataUtil {
         //获得数据的总行数
         int totalRowNum = sheet.getLastRowNum();
         Cell cell;
-        String[] key={"room_id","ammeter","power","time"};
+        String[] key = {"room_id", "ammeter", "power", "@timestrap"};
         //获得所有数据
         for (int i = 1; i <= totalRowNum; i++) {
             Row row = sheet.getRow(i);
-            Map map=new LinkedHashMap<String,String>();
-            for(short j=0;j<4;j++){
+            Map map = new LinkedHashMap<String, Object>();
+            for (short j = 0; j < 4; j++) {
                 cell = row.getCell(j);
                 cell.setCellType(CellType.STRING);
-                map.put(key[j],cell.getStringCellValue());
+                map.put(key[j], cell.getStringCellValue());
             }
-            list.add(map);
+            String time = (String) map.get(key[3]);
+            if (time.matches("^\\d{4}\\-\\d{2}\\-\\d{2}( )+\\d{2}\\:\\d{2}\\:\\d{2}$")) {
+                try {
+
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    map.replace(key[3], dateFormat.parse(time));
+                    list.add(map);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return list;
     }
