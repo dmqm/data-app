@@ -21,9 +21,9 @@ import java.util.Map;
 @SpringBootApplication
 public class Application {
     //    private static String directoryPath = "C:\\Users\\Qiny\\Documents\\Tencent Files\\978761353\\FileRecv\\2012-4-1";
-    private static String directoryPath = "C:\\Users\\justq\\Documents\\Tencent Files\\978761353\\FileRecv\\2012-4\\2012-4";
+    private static String directoryPath = "D:\\Documents\\2012-4";
     private static Logger log = LoggerFactory.getLogger(Application.class);
-    private static String index = "electric-data-test";
+    private static String index = "electric-data";
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

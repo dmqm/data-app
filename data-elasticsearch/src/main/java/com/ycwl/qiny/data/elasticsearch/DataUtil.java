@@ -10,9 +10,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DataUtil {
+    private static String[] keys = {"room_id", "ammeter", "power", "@timestrap"};
+    private static String[] patterns = {"^\\d+$", "^\\d+(\\.\\d+)?$", "^\\d+$", "^\\d{4}\\-\\d{2}\\-\\d{2}( )+\\d{2}\\:\\d{2}\\:\\d{2}$"};
 
     /**
      * 获取路径下的所有文件/文件夹
@@ -80,27 +85,47 @@ public class DataUtil {
         //获得数据的总行数
         int totalRowNum = sheet.getLastRowNum();
         Cell cell;
-        String[] key = {"room_id", "ammeter", "power", "@timestrap"};
-        //获得所有数据
+        String temp;
         for (int i = 1; i <= totalRowNum; i++) {
             Row row = sheet.getRow(i);
             Map map = new LinkedHashMap<String, Object>();
             for (short j = 0; j < 4; j++) {
                 cell = row.getCell(j);
                 cell.setCellType(CellType.STRING);
-                map.put(key[j], cell.getStringCellValue());
+                map.put(keys[j], cell.getStringCellValue());
             }
-            String time = (String) map.get(key[3]);
-            if (time.matches("^\\d{4}\\-\\d{2}\\-\\d{2}( )+\\d{2}\\:\\d{2}\\:\\d{2}$")) {
+            temp = (String) map.get(keys[0]);
+            if (temp.matches(patterns[0])) {
+                map.replace(keys[0], Integer.parseInt(temp));
+            } else {
+                continue;
+            }
+            temp = (String) map.get(keys[1]);
+            if (temp.matches(patterns[1])) {
+                map.replace(keys[1], Double.parseDouble(temp));
+            } else {
+                continue;
+            }
+            temp = (String) map.get(keys[2]);
+            if (temp.matches(patterns[2])) {
+                map.replace(keys[2], Integer.parseInt(temp));
+            } else {
+                continue;
+            }
+            temp = (String) map.get(keys[3]);
+            if (temp.matches(patterns[3])) {
                 try {
 
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    map.replace(key[3], dateFormat.parse(time));
-                    list.add(map);
+                    map.replace(keys[3], dateFormat.parse(temp));
                 } catch (ParseException e) {
                     e.printStackTrace();
+                    continue;
                 }
+            } else {
+                continue;
             }
+            list.add(map);
         }
         return list;
     }
