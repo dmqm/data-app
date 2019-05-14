@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataUtil {
     private static String[] keys = {"room_id", "ammeter", "power", "@timestrap"};
@@ -117,7 +114,9 @@ public class DataUtil {
                 try {
 
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    map.replace(keys[3], dateFormat.parse(temp));
+                    Date data=dateFormat.parse(temp);
+                    data.setYear(2018);
+                    map.replace(keys[3], data);
                 } catch (ParseException e) {
                     e.printStackTrace();
                     continue;
